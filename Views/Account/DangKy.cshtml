@@ -1,0 +1,59 @@
+﻿@model DemoWeb1.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Dangky";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<link href="~/Content/style-form.css" rel="stylesheet" />
+
+<div class="form-container">
+    <h2 style="text-align:center;">ĐĂNG KÝ TÀI KHOẢN</h2>
+
+
+    @using (Html.BeginForm("XuLyDangKy", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger validation-summary" })
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="Email" placeholder="Nhập email..." />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Mật khẩu:</label>
+            <input type="password" id="Password" name="Password" placeholder="Nhập mật khẩu..." />
+        </div>
+
+        <div class="form-group">
+            <label for="ConfirmPassword">Xác nhận mật khẩu:</label>
+            <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Nhập lại mật khẩu..." />
+        </div>
+
+        <div class="button-group">
+            <input type="submit" value="Đăng Ký" class="btn btn-primary" />
+            <input type="reset" value="Làm Lại" class="btn btn-secondary" />
+        </div>
+    }
+</div>
+
+<style>
+    .validation-summary {
+        margin-bottom: 20px;
+        background-color: #fcf0f0;
+        border: 1px solid #d9534f;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+    .text-danger {
+        color: #d9534f; 
+    }
+
+        .text-danger ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+</style>

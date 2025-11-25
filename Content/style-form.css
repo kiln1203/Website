@@ -1,0 +1,158 @@
+﻿.form-container {
+    max-width: 600px; /* Giới hạn chiều rộng form */
+    margin: 40px auto; /* Tự động căn giữa */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+    .form-container h2 {
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+/* Kiểu cho mỗi nhóm (label + input) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block; /* Cho label nằm trên input */
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Kiểu chung cho các ô nhập liệu */
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group input[type="email"],
+    .form-group select {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Quan trọng để padding không làm vỡ layout */
+        transition: border-color 0.2s;
+    }
+
+        /* Hiệu ứng khi click vào ô input */
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff; /* Đổi màu viền khi focus */
+            outline: none;
+        }
+
+/* Kiểu cho nhóm radio button */
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Khoảng cách giữa các nút */
+}
+
+    /* Ẩn radio button gốc */
+    .radio-group input[type="radio"] {
+        display: none;
+    }
+
+    /* Tạo radio button giả */
+    .radio-group label {
+        margin-bottom: 0; /* Ghi đè label của form-group */
+        font-weight: 500;
+        position: relative;
+        padding-left: 28px; /* Khoảng trống cho nút radio giả */
+        cursor: pointer;
+    }
+
+        /* Vòng tròn bên ngoài */
+        .radio-group label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+    /* Dấu chấm bên trong (khi được chọn) */
+    .radio-group input[type="radio"]:checked + label::after {
+        content: '';
+        position: absolute;
+        left: 5px; /* Căn giữa dấu chấm */
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        background: #007bff;
+        border-radius: 50%;
+    }
+
+    /* Đổi màu vòng tròn bên ngoài khi được chọn */
+    .radio-group input[type="radio"]:checked + label::before {
+        border-color: #007bff;
+    }
+
+
+/* Kiểu cho nhóm nút (button) */
+.button-group {
+    display: flex;
+    gap: 15px; /* Khoảng cách giữa 2 nút */
+    margin-top: 30px;
+}
+
+/* Kiểu chung cho nút */
+.btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-grow: 1; /* Cho 2 nút có chiều rộng bằng nhau */
+}
+
+/* Nút chính (Đăng Ký) */
+.btn-primary {
+    background-color: #007bff; /* Màu xanh dương */
+    color: #fff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+
+.btn-secondary {
+    background-color: #f0f0f0; /* Màu xám nhạt */
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+    .btn-secondary:hover {
+        background-color: #e0e0e0;
+    }
+.form-links {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .form-links a {
+        font-size: 14px;
+        color: #007bff; /* Màu xanh link */
+        text-decoration: none;
+    }
+
+        .form-links a:hover {
+            text-decoration: underline;
+        }

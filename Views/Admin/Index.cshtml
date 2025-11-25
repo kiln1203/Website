@@ -1,0 +1,79 @@
+﻿   @{
+        ViewBag.Title = "Bảng điều khiển Admin";
+        Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+    }
+
+    <style>
+        .admin-dashboard-container {
+            padding: 30px;
+            background-color: #3a3a3a; /* Nền hộp Admin */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            margin: 30px auto; /* Căn giữa */
+            color: #e0e0e0;
+        }
+
+            .admin-dashboard-container h2 {
+                color: #ffffff;
+                margin-bottom: 25px;
+                border-bottom: 2px solid #555;
+                padding-bottom: 15px;
+                text-align: center;
+            }
+
+            .admin-dashboard-container p {
+                font-size: 1.1em;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .admin-dashboard-container ul {
+                list-style: none; /* Bỏ dấu chấm */
+                padding: 0;
+                display: flex; /* Dùng flexbox để sắp xếp */
+                flex-wrap: wrap; /* Cho phép xuống dòng */
+                gap: 20px; /* Khoảng cách giữa các mục */
+                justify-content: center; /* Căn giữa các mục */
+            }
+
+                .admin-dashboard-container ul li {
+                    background-color: #505050; /* Nền của từng mục */
+                    padding: 20px;
+                    border-radius: 5px;
+                    flex: 1 1 calc(33% - 40px); /* 3 mục mỗi dòng trên màn hình lớn */
+                    min-width: 250px; /* Kích thước tối thiểu */
+                    text-align: center;
+                    transition: transform 0.2s ease-in-out;
+                }
+
+                    .admin-dashboard-container ul li:hover {
+                        transform: translateY(-5px); /* Hiệu ứng khi hover */
+                        background-color: #5a5a5a;
+                    }
+
+                    .admin-dashboard-container ul li a {
+                        color: #4dbbff; /* Màu link */
+                        text-decoration: none;
+                        font-size: 1.3em;
+                        font-weight: bold;
+                        display: block; /* Đảm bảo link chiếm toàn bộ item */
+                    }
+
+                        .admin-dashboard-container ul li a:hover {
+                            text-decoration: underline;
+                            color: #6ed1ff;
+                        }
+    </style>
+
+    <div class="admin-dashboard-container">
+        <h2>TRANG QUẢN TRỊ ADMIN</h2>
+        <p>Chào mừng bạn, quản trị viên! Chọn một chức năng dưới đây để bắt đầu.</p>
+
+        <ul>
+            <li>@Html.ActionLink("Quản lý Đơn hàng", "QuanLyDonHang", "Admin")</li>
+            <li>@Html.ActionLink("Quản lý Sản phẩm", "QuanLySanPham", "Admin")</li>
+            <li>@Html.ActionLink("Thống kê Doanh thu", "ThongKeDoanhThu", "Admin")</li>
+            <li>@Html.ActionLink("Thống kê Tồn kho", "ThongKeTonKho", "Admin")</li>
+        </ul>
+    </div>

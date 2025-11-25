@@ -1,0 +1,65 @@
+﻿@model DemoWeb1.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<link href="~/Content/style-form.css" rel="stylesheet" />
+
+<div class="form-container">
+    <h2 style="text-align:center;">THÔNG TIN TÀI KHOẢN</h2>
+
+    @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4 style="text-align:center; font-weight: 500; color: #333;">Cập nhật thông tin cá nhân</h4>
+        <hr />
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger validation-summary" })
+
+        <div class="form-group">
+            <label>Email (Tên đăng nhập)</label>
+            <input type="email" value="@User.Identity.Name" class="form-control" readonly style="background-color: #eee;" />
+        </div>
+
+        <div class="form-group">
+            <label for="HoTen">Họ tên:</label>
+            <input type="text" id="HoTen" name="HoTen" class="form-control" placeholder="Nhập họ tên của bạn..." />
+        </div>
+
+        <div class="form-group">
+            <label for="DiaChi">Địa chỉ:</label>
+            <input type="text" id="DiaChi" name="DiaChi" class="form-control" placeholder="Nhập địa chỉ giao hàng..." />
+        </div>
+
+        <div class="button-group">
+            <input type="submit" value="Cập nhật thông tin" class="btn btn-primary" />
+        </div>
+    }
+
+    <hr />
+
+    <div class="form-group">
+        <label>Mật khẩu:</label>
+        @Html.ActionLink("Đổi mật khẩu của bạn", "ChangePassword", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+
+<style>
+    .validation-summary {
+        margin-bottom: 20px;
+        background-color: #fcf0f0;
+        border: 1px solid #d9534f;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+    .text-danger {
+        color: #d9534f;
+    }
+
+        .text-danger ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+</style>

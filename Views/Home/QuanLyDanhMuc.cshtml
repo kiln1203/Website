@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "QuanLyDanhMuc";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+}
+
+<link href="~/Content/style-admin.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<div class="admin-container">
+
+    <div class="admin-header">
+        <h2>Quản lý Danh mục Hàng hóa</h2>
+        <a href="@Url.Action("ThemDanhMuc", "Admin")" class="btn btn-add-new">
+            <i class="fas fa-plus"></i> Thêm Danh mục mới
+        </a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã Danh mục</th>
+                <th>Tên Danh mục</th>
+                <th>Mô tả</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>IPHONE</td>
+                <td>iPhone</td>
+                <td>Các dòng điện thoại iPhone của Apple.</td>
+                <td class="actions">
+                    <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Sửa</a>
+                    <a href="#" class="btn btn-delete"><i class="fas fa-trash"></i> Xóa</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>MAC</td>
+                <td>Mac</td>
+                <td>Các dòng máy tính Macbook, iMac.</td>
+                <td class="actions">
+                    <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Sửa</a>
+                    <a href="#" class="btn btn-delete"><i class="fas fa-trash"></i> Xóa</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>WATCH</td>
+                <td>Apple Watch</td>
+                <td>Đồng hồ thông minh Apple Watch.</td>
+                <td class="actions">
+                    <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Sửa</a>
+                    <a href="#" class="btn btn-delete"><i class="fas fa-trash"></i> Xóa</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

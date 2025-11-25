@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<div style="text-align: center; padding: 60px 0;">
+    <i class="fa-solid fa-check-circle" style="font-size: 80px; color: #28a745;"></i>
+    <h1 style="margin-top: 20px;">Đặt hàng thành công!</h1>
+    <p style="font-size: 18px;">Cảm ơn bạn đã mua sắm. Chúng tôi sẽ liên hệ để xác nhận đơn hàng của bạn.</p>
+    <br />
+    <a href="@Url.Action("Trangchu", "Home")" class="btn btn-primary" style="background: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+        Tiếp tục mua sắm
+    </a>
+</div>

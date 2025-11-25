@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DemoWeb1.Models.Category>
+
+@{
+    ViewBag.Title = "CategoriesList";
+}
+
+<h2>CategoriesList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDCate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameCate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDCate)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameCate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IDCate }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IDCate }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IDCate })
+        </td>
+    </tr>
+}
+
+</table>

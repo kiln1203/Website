@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DemoWeb1.Models.Product>
+
+@{
+    ViewBag.Title = "DanhSachSanPham";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<h2 style="text-align:center; font-size: 32px; margin-bottom: 30px; margin-top: 10px;">
+    Tất cả sản phẩm
+</h2>
+
+<div class="product-grid">
+    @foreach (var sp in Model)
+    {
+        <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.IDProduct })" class="product-link">
+            <div class="box-pro">
+                <div class="pro-badges">
+                    <span class="badge new">Mới</span>
+                </div>
+
+                <img src="~/Images/@sp.Image" class="pro-img" />
+
+                <div class="box-description">
+                    <h3 class="pro-title">@sp.NamePro</h3>
+                    <p class="pro-price">@sp.Price.ToString("N0")₫</p>
+                </div>
+            </div>
+        </a>
+    }
+</div>
+
+<style>
+    a.product-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>

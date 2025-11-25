@@ -1,0 +1,117 @@
+﻿@model DemoWeb1.ViewModels.HomepageViewModel
+@{
+    ViewBag.Title = "Trangchu";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+<div class="product-section">
+    <h2 class="section-title-center">iPhone</h2>
+
+    <div class="product-grid">
+        @foreach (var sp in Model.iPhones)
+        {
+            <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.IDProduct })" class="product-link">
+                <div class="box-pro">
+                    <div class="pro-badges">
+                        <span class="badge new">Mới</span>
+                    </div>
+                    <img src="~/Images/@sp.Image" class="pro-img" />
+                    <div class="box-description">
+                        <h3 class="pro-title">@sp.NamePro</h3>
+                        <p class="pro-price">@sp.Price.ToString("N0")₫</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <div class="see-more-container">
+        <a href="@Url.Action("DanhSachSanPham", "Home", new { categoryID = 1 })" class="btn-see-more">
+            Xem tất cả iPhone
+        </a>
+    </div>
+</div>
+
+<div class="product-section">
+    <h2 class="section-title-center">iPad</h2>
+    <div class="product-grid">
+        @foreach (var sp in Model.iPads)
+        {
+            <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.IDProduct })" class="product-link">
+                <div class="box-pro">
+                    <img src="~/Images/@sp.Image" class="pro-img" />
+                    <div class="box-description">
+                        <h3 class="pro-title">@sp.NamePro</h3>
+                        <p class="pro-price">@sp.Price.ToString("N0")₫</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="see-more-container">
+        <a href="@Url.Action("DanhSachSanPham", "Home", new { categoryID = 2 })" class="btn-see-more">
+            Xem tất cả iPad
+        </a>
+    </div>
+</div>
+
+<div class="product-section">
+    <h2 class="section-title-center">Mac</h2>
+    <div class="product-grid">
+        @foreach (var sp in Model.Macs)
+        {
+            <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.IDProduct })" class="product-link">
+                <div class="box-pro">
+                    <img src="~/Images/@sp.Image" class="pro-img" />
+                    <div class="box-description">
+                        <h3 class="pro-title">@sp.NamePro</h3>
+                        <p class="pro-price">@sp.Price.ToString("N0")₫</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="see-more-container">
+        <a href="@Url.Action("DanhSachSanPham", "Home", new { categoryID = 3 })" class="btn-see-more">
+            Xem tất cả Mac
+        </a>
+    </div>
+</div>
+
+<style>
+    a.product-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .product-section {
+        margin-bottom: 40px;
+    }
+
+    .section-title-center {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    .see-more-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn-see-more {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #007bff;
+        color: #007bff;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+        .btn-see-more:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+</style>

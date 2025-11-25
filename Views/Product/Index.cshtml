@@ -1,0 +1,36 @@
+﻿@* 
+PSEUDOCODE / PLAN (detailed):
+1. The view currently declares a single `Product` as the model but uses `foreach` over `Model`.
+2. Fix by changing the model type to a collection: `IEnumerable<DemoWeb1.Models.Product>`.
+3. Keep the existing markup that iterates: `@foreach (var pro in Model)`.
+4. For each `pro`:
+   - Render `ProductID`.
+   - Render an image using `@Url.Content(pro.Image_Pro)` to resolve virtual paths.
+   - Provide a "Buy" button (keeps as input submit for minimal change).
+   - Render `NamePro` and `Price`.
+5. Ensure Razor directives and HTML structure remain valid.
+*@
+
+@model IEnumerable<DemoWeb1.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>DANH SACH SAN PHAM</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var pro in Model)
+        {
+            <div class="col-sm-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card-pro">
+                    <p>@Html.DisplayFor(modelItem => pro.IDProduct)</p>
+                    <img src="@Url.Content(pro.NamePro)" height="150" width="150" alt="@pro.NamePro" />
+                    <p><input type="submit" value="Buy" /></p>
+                    <p>@Html.DisplayFor(modelItem => pro.NamePro)</p>
+                    <p>@Html.DisplayFor(modelItem => pro.Price)</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

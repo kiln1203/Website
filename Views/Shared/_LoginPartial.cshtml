@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        if (User.IsInRole("Admin"))
+        {
+            <a href="@Url.Action("Index", "Admin")" class="action-item" style="color:red; font-weight: 600;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Trang Admin</span>
+            </a>
+        }
+
+        <a href="@Url.Action("Index", "Manage")" title="Manage" class="action-item">
+            <i class="fa-solid fa-user-check"></i>
+            <span>Hello @User.Identity.GetUserName()!</span>
+        </a>
+
+        <a href="@Url.Action("LichSuMuaHang", "Manage")" class="action-item">
+            <i class="fa-solid fa-history"></i>
+            <span>Lịch sử đơn hàng</span>
+        </a>
+
+        <a href="javascript:document.getElementById('logoutForm').submit()" class="action-item">
+            <i class="fa-solid fa-sign-out-alt"></i>
+            <span>Log off</span>
+        </a>
+    }
+}
+else
+{
+    <a href="@Url.Action("Dangky", "Account")" class="action-item">
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Đăng ký</span>
+    </a>
+
+    <a href="@Url.Action("Login", "Account")" class="action-item">
+        <i class="fa-solid fa-sign-in-alt"></i>
+        <span>Đăng nhập</span>
+    </a>
+}

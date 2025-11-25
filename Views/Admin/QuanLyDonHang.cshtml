@@ -1,0 +1,138 @@
+﻿@model IEnumerable<DemoWeb1.Models.OrderPro>
+
+@{
+    ViewBag.Title = "Quản lý Đơn hàng";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<style>
+    .order-management-container {
+        padding: 30px;
+        background-color: #3a3a3a;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 1200px;
+        margin: 30px auto;
+        color: #e0e0e0;
+    }
+
+        .order-management-container h2 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+    .table-dark-theme {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table-dark-theme th,
+        .table-dark-theme td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+            color: #e0e0e0;
+        }
+
+        .table-dark-theme th {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .table-dark-theme tr:nth-child(even) {
+            background-color: #424242; /* Màu hàng chẵn */
+        }
+
+        .table-dark-theme tr:hover {
+            background-color: #555; /* Hiệu ứng hover */
+        }
+
+    /* Màu cho Status */
+    .status-pending {
+        color: orange;
+        font-weight: bold;
+    }
+
+    .status-processing {
+        color: #4dbbff;
+        font-weight: bold;
+    }
+
+    .status-delivered {
+        color: #28a745;
+        font-weight: bold;
+    }
+    /* xanh lá */
+    .status-cancelled {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    /* đỏ */
+
+    .btn-view-details {
+        background-color: #4dbbff;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+        .btn-view-details:hover {
+            background-color: #6ed1ff;
+        }
+</style>
+
+<div class="order-management-container">
+    <h2>QUẢN LÝ ĐƠN HÀNG</h2>
+
+    <table class="table-dark-theme">
+        <thead>
+            <tr>
+                <th>Mã ĐH</th>
+                <th>Khách hàng</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Địa chỉ giao hàng</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateOrder)</td>
+                    <td>@(((decimal)item.TotalAmount).ToString("N0")) ₫</td>
+                    <td>@Html.DisplayFor(modelItem => item.AddressDelivery)</td>
+                    <td>
+                        @{
+                            string statusClass = "";
+                            switch (item.Status)
+                            {
+                                case "Đang chờ xử lý": statusClass = "status-pending"; break;
+                                case "Đang giao hàng": statusClass = "status-processing"; break;
+                                case "Đã giao hàng": statusClass = "status-delivered"; break;
+                                case "Đã hủy": statusClass = "status-cancelled"; break;
+                                default: statusClass = ""; break;
+                            }
+                        }
+                        <span class="@statusClass">@Html.DisplayFor(modelItem => item.Status)</span>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ChiTietDonHangAdmin", "Admin", new { id = item.ID })" class="btn-view-details">
+                            Chi tiết
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

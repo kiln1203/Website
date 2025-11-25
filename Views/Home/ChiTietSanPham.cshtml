@@ -1,0 +1,301 @@
+﻿@model DemoWeb1.Models.Product
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+<div class="detail-container">
+    <div class="detail-layout">
+
+        <div class="detail-image">
+            <img src="~/Images/@Model.Image" alt="@Model.NamePro" class="product-detail-image" />
+        </div>
+
+        <div class="detail-info">
+
+            <h1 class="detail-title">@Model.NamePro</h1>
+            <div class="detail-price">@Model.Price.ToString("N0")₫</div>
+            <div class="detail-price" data-price="@Model.Price">
+                @Model.Price.ToString("N0")₫
+            </div>
+            <div class="options-group">
+                <label>Dung lượng:</label>
+                <div class="options-items">
+                    <button class="option-btn active">128GB</button>
+                    <button class="option-btn">256GB</button>
+                    <button class="option-btn">512GB</button>
+                </div>
+            </div>
+
+            <div class="options-group">
+                <label>Màu sắc:</label>
+                @{
+                    string productNameLower = Model.NamePro.ToLower();
+                    if (productNameLower.Contains("iphone 17 pro max") || productNameLower.Contains("iphone 17 pro"))
+                    {
+                        <div class="color-options-circle">
+                            <button class="color-option" data-color="Xanh Đậm" style="background-color: #2F3C47;"></button>
+                            <button class="color-option" data-color="Cam" style="background-color: #E07A5F;"></button>
+                            <button class="color-option" data-color="Trắng" style="background-color: #F5F5F7; border: 1px solid #ddd;"></button>
+                        </div>
+                    }
+                    else if (productNameLower.Contains("iphone 17"))
+                    {
+                        <div class="color-options-circle">
+                            <button class="color-option" data-color="Tím Oải Hương" style="background-color: #E1DDEF;"></button>
+                            <button class="color-option" data-color="Xanh Lá Xô Thơm" style="background-color: #DDE5D9;"></button>
+                            <button class="color-option" data-color="Xanh Lam Khói" style="background-color: #BFD7E8;"></button>
+                        </div>
+                    }
+                    else if (productNameLower.Contains("iphone air"))
+                    {
+                        <div class="color-options-circle">
+                            <button class="color-option" data-color="Đen" style="background-color: #3B3B3B;"></button>
+                            <button class="color-option" data-color="Trắng Mây" style="background-color: #F5F5F7; border: 1px solid #ddd;"></button>
+                            <button class="color-option" data-color="Vàng Nhạt" style="background-color: #F0EAD6;"></button>
+                            <button class="color-option" data-color="Xanh Da Trời" style="background-color: #D6EAF8;"></button>
+                        </div>
+                    }
+                    else // Mặc định (cho iPhone 16 và các máy cũ)
+                    {
+                        <div class="options-items">
+                            <button class="option-btn" data-color="Titan Tự nhiên">Titan Tự nhiên</button>
+                            <button class="option-btn" data-color="Titan Xanh">Titan Xanh</button>
+                            <button class="option-btn" data-color="Titan Trắng">Titan Trắng</button>
+                        </div>
+                    }
+                }
+            </div>
+
+            @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.IDProduct)
+                <div class="quantity-selector">
+                    <label>Số lượng:</label>
+                    <input type="number" value="1" min="1" class="quantity-input" name="quantity">
+                </div>
+                <input type="hidden" name="color" id="selectedColorInput" value="" />
+                <input type="hidden" name="capacity" id="selectedCapacityInput" value="128GB" />
+                <button type="submit" class="btn btn-add-to-cart">
+                    Thêm vào giỏ hàng
+                </button>
+            }
+        </div>
+        <div class="specs-container">
+            <h3 class="specs-title">Thông số kỹ thuật</h3>
+            <ul class="specs-list">
+                <li>
+                    <i class="fa-solid fa-microchip"></i>
+                    <strong>Chip:</strong>
+                    <span>@(Model.Chip ?? "Đang cập nhật")</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-memory"></i>
+                    <strong>RAM:</strong>
+                    <span>@(Model.Ram ?? "Đang cập nhật")</span>
+                </li>
+                <li>
+                    <strong>Camera:</strong>
+                    <span>@(Model.Camera ?? "Đang cập nhật")</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <strong>Màn hình:</strong>
+                    <span>@(Model.ManHinh ?? "Đang cập nhật")</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-battery-full"></i>
+                    <strong>Pin:</strong>
+                    <span>@(Model.Pin ?? "Đang cập nhật")</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> 
+ <div class="description-section">
+    <h3 class="section-heading">Mô tả sản phẩm</h3>
+    <div class="description-content">
+        @if (!string.IsNullOrEmpty(Model.Description))
+        {
+            @Html.Raw(Model.Description.Replace("\n", "<br>"))
+        }
+        else
+        {
+            <p>Đang cập nhật mô tả...</p>
+        }
+    </div>
+</div>
+
+<div class="related-products-section">
+    <h3 class="section-heading">Sản phẩm khác</h3>
+    <div class="related-grid">
+        @if (ViewBag.SanphamLienQuan != null)
+        {
+            foreach (var item in ViewBag.SanphamLienQuan as List<DemoWeb1.Models.Product>)
+            {
+                <a href="@Url.Action("ChiTietSanPham", "Home", new { id = item.IDProduct })" class="related-item">
+                    <div class="related-img-box">
+                        <img src="~/Images/@item.Image" alt="@item.NamePro" />
+                    </div>
+                    <div class="related-info">
+                        <p class="related-name">@item.NamePro</p>
+                        <p class="related-price">@item.Price.ToString("N0")₫</p>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.quantity-input').on('input change', function () {
+            var quantity = parseInt($(this).val());
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
+            var priceElement = $('.detail-price');
+            var basePrice = parseFloat(priceElement.data('price'));
+            var totalPrice = basePrice * quantity;
+            var formattedPrice = totalPrice.toLocaleString('vi-VN');
+            priceElement.text(formattedPrice + '₫');
+        });
+        $('.options-items .option-btn:first, .color-options-circle .color-option:first').addClass('active');
+        $('.option-btn, .color-option').on('click', function (e) {
+
+            e.preventDefault();
+
+
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+
+            var selectedColor = $(this).data('color');
+            var newImageUrl = "";
+
+
+            // iPhone 17 (màu mới)
+            if (selectedColor === 'Tím Oải Hương') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageTimOaiHuong';
+            }
+            else if (selectedColor === 'Xanh Lá Xô Thơm') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageXanhLaXoThom';
+            }
+            else if (selectedColor === 'Xanh Lam Khói') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageXanhLamKhoi';
+            }
+            // iPhone 16 (màu Titan)
+            else if (selectedColor === 'Titan Tự nhiên') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageTitanTuNhien';
+            }
+            else if (selectedColor === 'Titan Xanh') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageTitanXanh';
+            }
+            else if (selectedColor === 'Titan Trắng') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageTitanTrang';
+            }
+            // iPhone 17 Pro (màu Pro)
+            else if (selectedColor === 'Xanh Đậm') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageXanhDam';
+            }
+            else if (selectedColor === 'Cam') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageCam';
+            }
+            // iPhone Air (màu Air)
+            else if (selectedColor === 'Đen') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageAirDen';
+            }
+            else if (selectedColor === 'Trắng Mây') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageAirTrangMay';
+            }
+            else if (selectedColor === 'Vàng Nhạt') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageAirVangNhat';
+            }
+            else if (selectedColor === 'Xanh Da Trời') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageAirXanhDaTroi';
+            }
+            else if (selectedColor === 'Cam') {
+                newImageUrl = '@Url.Content("~/Images/")' + '@Model.ImageCam';
+            }
+
+            // Cập nhật ảnh chính
+            if (newImageUrl) {
+                $('.detail-image img.product-detail-image').attr('src', newImageUrl);
+            }
+            });
+            $('.option-btn').on('click', function (e) {
+                if ($(this).parent().parent().find('label').text().includes('Dung lượng')) {
+                    $('#selectedCapacityInput').val($(this).text());
+                }
+                $('.color-option').on('click', function (e) {
+                    $('#selectedColorInput').val($(this).data('color'));
+                });
+                var defaultColor = $('.color-options-circle .color-option.active').data('color');
+                if (defaultColor) $('#selectedColorInput').val(defaultColor);
+        });
+    });
+</script>
+
+<style>
+    /* CSS cho các nút màu tròn */
+    .color-options-circle {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+        .color-options-circle .color-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+            .color-options-circle .color-option:hover {
+                transform: scale(1.1);
+            }
+
+            .color-options-circle .color-option.active {
+                border-color: #007bff;
+                transform: scale(1.15);
+                box-shadow: 0 0 5px rgba(0,123,255,0.5);
+            }
+    .specs-container {
+        margin-top: 25px;
+        background-color: #f5f5f7;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #e1e1e1;
+    }
+
+    .specs-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+    }
+
+    .specs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .specs-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 14px;
+        }
+
+            .specs-list li:last-child {
+                border-bottom: none;
+            }
+
+            .specs-list li i {
+                color: #0071e3;
+                margin-right: 5px;
+                width: 20px;
+            }
+</style>

@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Thống kê Doanh thu";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml"; 
+}
+
+<style>
+    .statistics-container {
+        padding: 30px;
+        background-color: #3a3a3a;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 800px;
+        margin: 30px auto;
+        color: #e0e0e0;
+    }
+
+        .statistics-container h2 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+    .statistics-form .form-group {
+        margin-bottom: 15px;
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .statistics-form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #c0c0c0;
+    }
+
+    .statistics-form .form-control {
+        background-color: #555;
+        border: 1px solid #777;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 4px;
+    }
+
+    .statistics-form .btn-primary {
+        background-color: #4dbbff;
+        border-color: #4dbbff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .statistics-form .btn-primary:hover {
+            background-color: #6ed1ff;
+            border-color: #6ed1ff;
+        }
+
+    .statistics-results {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+        .statistics-results .result-box {
+            background-color: #505050;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+            .statistics-results .result-box h3 {
+                color: #ffffff;
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+
+            .statistics-results .result-box p {
+                font-size: 2.2em;
+                font-weight: bold;
+                color: #f33; /* Màu đỏ cho doanh thu */
+            }
+
+            .statistics-results .result-box.orders p {
+                color: #4dbbff; /* Màu xanh cho số đơn hàng */
+            }
+</style>
+
+<div class="statistics-container">
+    <h2>THỐNG KÊ DOANH THU</h2>
+
+    @using (Html.BeginForm("ThongKeDoanhThu", "Admin", FormMethod.Post, new { @class = "statistics-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="month">Tháng:</label>
+            @Html.DropDownList("month", (IEnumerable<SelectListItem>)ViewBag.Months, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="year">Năm:</label>
+            @Html.DropDownList("year", (IEnumerable<SelectListItem>)ViewBag.Years, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Xem thống kê</button>
+    }
+
+    <div class="statistics-results">
+        @if (ViewBag.TotalRevenue != null)
+        {
+            <h3>Kết quả thống kê Tháng @ViewBag.SelectedMonth / @ViewBag.SelectedYear:</h3>
+            <div class="result-box">
+                <h3>Tổng Doanh thu</h3>
+                <p>@(((decimal)ViewBag.TotalRevenue).ToString("N0")) ₫</p>
+            </div>
+            <div class="result-box orders">
+                <h3>Tổng số Đơn hàng</h3>
+                <p>@((int)ViewBag.TotalOrders)</p>
+            </div>
+        }
+        else
+        {
+            <p>Chọn tháng và năm để xem thống kê doanh thu.</p>
+        }
+    </div>
+</div>

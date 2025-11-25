@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DemoWeb1.Models.OrderPro>
+@{
+    ViewBag.Title = "Lịch sử mua hàng";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+<link href="~/Content/style-admin.css" rel="stylesheet" />
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h2>Lịch sử mua hàng của bạn</h2>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Mã Đơn</th>
+                <th>Ngày Đặt</th>
+                <th>Người Nhận</th>
+                <th>Địa Chỉ Giao Hàng</th>
+                <th>Tổng Tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>#@order.ID</td>
+
+                    <td>
+                        @(order.DateOrder.HasValue ? order.DateOrder.Value.ToString("dd/MM/yyyy") : "Chưa có")
+                    </td>
+
+                    <td>@order.IDCus</td>
+                    <td>@order.AddressDelivery</td>
+
+                    <td>
+                        @(order.TotalAmount.HasValue ? order.TotalAmount.Value.ToString("N0") : "0")₫
+                    </td>
+
+                    <td>@order.Status</td>
+                </tr>
+            }
+
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="6" style="text-align:center; padding: 30px;">
+                        Bạn chưa có đơn hàng nào.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

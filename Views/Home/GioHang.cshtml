@@ -1,0 +1,104 @@
+﻿@model List<DemoWeb1.Models.CartItem>
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<link href="~/Content/style-cart.css" rel="stylesheet" />
+
+<div class="cart-container">
+    <h2 style="margin-bottom: 30px;">Giỏ hàng của bạn</h2>
+
+    <div class="cart-layout">
+        </div>
+    </div>
+        <div class="cart-items-list">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-image">
+                                <img src="~/Images/@item.Image" alt="@item.NamePro">
+                            </td>
+                            <td class="col-title">
+                                @item.NamePro
+                            </td>
+                            <td class="col-price">
+                                @item.Price.ToString("N0")₫
+                            </td>
+                            <td class="col-quantity">
+                                <input type="number" value="@item.Quantity" min="1" class="quantity-input">
+                            </td>
+                            <td class="col-total-price">
+                                @item.TotalPrice.ToString("N0")₫
+                            </td>
+                            <td class="col-remove">
+                                <a href="@Url.Action("RemoveFromCart", "Home", new { id = item.IDProduct })" class="remove-btn">X</a>
+                            </td>
+                        </tr>
+                    }
+
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align:center; padding: 50px; font-size: 18px;">
+                                Giỏ hàng của bạn đang trống.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cart-summary">
+            <h3>Tóm tắt đơn hàng</h3>
+            <div class="summary-row">
+                <span>Tạm tính:</span>
+                <span class="summary-value">@ViewBag.TongTien.ToString("N0")₫</span>
+            </div>
+            <div class="summary-row">
+                <span>Giảm giá:</span>
+                <span class="summary-value">0₫</span>
+            </div>
+            <div class="summary-row total">
+                <span>Tổng cộng:</span>
+                <span class="summary-value total-price">@ViewBag.TongTien.ToString("N0")₫</span>
+            </div>
+
+            <a href="@Url.Action("ThanhToan", "Home")" class="btn btn-checkout">
+                Tiến hành thanh toán
+            </a>
+            <a href="@Url.Action("Trangchu", "Home")" class="btn btn-continue">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+
+    </div>
+<script>
+    $(document).ready(function () {
+
+        $('.options-items .option-btn:first').addClass('active');
+        $('.quantity-input').on('input change', function () {
+            var quantity = parseInt($(this).val());
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
+
+            var priceElement = $('.detail-price');
+            var basePrice = parseFloat(priceElement.data('price')); 
+            var totalPrice = basePrice * quantity;                  
+            var formattedPrice = totalPrice.toLocaleString('vi-VN');
+
+            priceElement.text(formattedPrice + '₫');
+        });
+    });
+</script>

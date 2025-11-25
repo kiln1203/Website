@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DemoWeb1.Models.Product>
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml";
+}
+
+<h2 style="text-align:left; font-size: 28px; margin-bottom: 30px;">
+    Kết quả tìm kiếm cho: "@ViewBag.SearchQuery"
+</h2>
+
+<div class="product-grid">
+
+    @if (Model.Any())
+    {
+        foreach (var sp in Model)
+        {
+            <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.IDProduct })" class="product-link">
+                <div class="box-pro">
+                    <div class="pro-badges">
+                        <span class="badge new">Mới</span>
+                    </div>
+
+                    <img src="~/Images/@sp.Image" class="pro-img" />
+
+                    <div class="box-description">
+                        <h3 class="pro-title">@sp.NamePro</h3>
+                        <p class="pro-price">@sp.Price.ToString("N0")₫</p>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <p style="font-size: 18px;">Không tìm thấy sản phẩm nào phù hợp.</p>
+    }
+</div>
+
+<style>
+    a.product-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>

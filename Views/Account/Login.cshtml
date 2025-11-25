@@ -1,0 +1,81 @@
+﻿@model DemoWeb1.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_MasterLayout3.cshtml"; 
+}
+
+<link href="~/Content/style-form.css" rel="stylesheet" />
+
+<div class="form-container">
+    <h2 style="text-align:center;">ĐĂNG NHẬP TÀI KHOẢN</h2>
+    <h4 style="text-align:center; font-weight: 400; color: #555; margin-top: -20px; margin-bottom: 30px;">
+        Chào mừng bạn trở lại!
+    </h4>
+
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger validation-summary" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @for = "Email" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "Email", @placeholder = "Nhập email của bạn..." })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @for = "Password" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "Password", @placeholder = "Nhập mật khẩu..." })
+        </div>
+
+        <div class="form-group-checkbox">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </div>
+
+        <div class="button-group">
+            <input type="submit" value="Đăng Nhập" class="btn btn-primary" />
+        </div>
+
+        <div class="form-links">
+            <a href="@Url.Action("ForgotPassword", "Account")" class="link-forgot">Quên mật khẩu?</a>
+            <a href="@Url.Action("Dangky", "Account")" class="link-register">Tạo tài khoản mới</a>
+        </div>
+    }
+</div>
+
+<style>
+    .form-group-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+        .form-group-checkbox label {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .form-group-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+    .validation-summary {
+        margin-bottom: 20px;
+        background-color: #fcf0f0;
+        border: 1px solid #d9534f;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+    .text-danger {
+        color: #d9534f;
+    }
+
+        .text-danger ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+</style>

@@ -1,0 +1,68 @@
+﻿/* --- ADMIN DARK THEME --- */
+
+body.admin-theme {
+    /* Nền chính */
+    background-color: #2b2b2b !important;
+    color: #e0e0e0;
+}
+
+/* Header (chứa logo và tìm kiếm) */
+.admin-theme .main-header {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #080808 !important;
+}
+
+/* Thanh menu (iPhone, iPad, Mac...) */
+.admin-theme .main-nav {
+    background-color: #333 !important;
+}
+
+    /* Chữ trên thanh menu */
+    .admin-theme .main-nav ul li a {
+        color: #c0c0c0 !important;
+    }
+
+        .admin-theme .main-nav ul li a:hover {
+            background-color: #555 !important;
+            color: #ffffff !important;
+        }
+
+/* Link bên phải (Giỏ hàng, Hello...) */
+.admin-theme .header-actions .action-item {
+    color: #c0c0c0 !important;
+}
+
+    .admin-theme .header-actions .action-item:hover {
+        color: #ffffff !important;
+    }
+
+/* Nút tìm kiếm */
+.admin-theme .search-bar .search-button {
+    color: #c0c0c0;
+}
+
+.admin-theme .search-bar input[type="text"] {
+    background-color: #444;
+    border-color: #555;
+    color: #fff;
+}
+
+/* Tiêu đề (iPhone, iPad) trên trang chủ */
+.admin-theme .section-title-center {
+    color: #ffffff;
+}
+
+/* Hộp sản phẩm */
+.admin-theme .box-pro {
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+    .admin-theme .box-pro .pro-title {
+        color: #ffffff;
+    }
+
+    .admin-theme .box-pro .pro-price {
+        color: #f33; /* Giá tiền màu đỏ sáng */
+    }
